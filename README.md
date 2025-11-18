@@ -1,1 +1,1 @@
-# PretrainAppEO-Eurocrops-Self-Supervised-Learning
+# PretrainAppEO: SSL on EurocropsML
