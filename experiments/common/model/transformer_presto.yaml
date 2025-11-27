@@ -1,0 +1,29 @@
+d_model: 128
+dim_fc: 264 # d_model*mlp_ratio = 128*2
+in_channels: 18 # for SEN12MSCRTS (inlcuding NDVI)
+pos_enc_len: 366
+location_encoding: True
+n_heads: 8
+num_layers: 2
+channel_encoding: "presto"
+channels:
+  - "VV"
+  - "VH"
+  - "01"
+  - "02"
+  - "03"
+  - "04"
+  - "05"
+  - "06"
+  - "07"
+  - "08"
+  - "8A"
+  - "09"
+  - "10"
+  - "11"
+  - "12"
+  - "2m_temperature"
+  - "total_precipitation"
+  - "NDVI"
+
+model_builder: TransformerModelBuilder
