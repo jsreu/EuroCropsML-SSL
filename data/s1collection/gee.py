@@ -18,13 +18,13 @@ logger = logging.getLogger("gee_processing")
 class RateLimiter:
     """Add a rate limiter class to manage concurrent requests."""
 
-    def __init__(self, max_requests=20, time_window=60):
-        self.queue = Queue()
+    def __init__(self, max_requests: int = 20, time_window: int = 60):
+        self.queue: Queue = Queue()
         self.lock = Lock()
         self.max_requests = max_requests
         self.time_window = time_window
 
-    def _acquire(self):
+    def _acquire(self) -> None:
         current_time = time.time()
         with self.lock:
             while not self.queue.empty() and current_time - self.queue.queue[0] > self.time_window:
@@ -66,7 +66,7 @@ def find_last_processed_raster(log_dir: Path) -> Optional[int]:
     return highest_raster_idx if highest_raster_idx >= 0 else None
 
 
-def get_s1_collection(start_date, end_date, country_geometry):
+def get_s1_collection(start_date: str, end_date: str, country_geometry: str) -> ee.ImageCollection:
     """Get collection of S1 files."""
     logger.info(f"Collecting Sentinel-1 tiles from {start_date} to {end_date}...")
     s1_collection = (
@@ -84,7 +84,7 @@ def get_s1_collection(start_date, end_date, country_geometry):
     return s1_collection
 
 
-def _process_chunk(chunk_data):
+def _process_chunk(chunk_data: tuple) -> bool:
     image, parcels, raster_idx, chunk_start, chunk_size, rate_limiter = chunk_data
     try:
         rate_limiter._acquire()
@@ -123,7 +123,13 @@ def _process_chunk(chunk_data):
         return False
 
 
-def _process_image(image, parcels, raster_idx, max_workers=4, chunk_size=2500):
+def _process_image(
+    image: ee.Image,
+    parcels: ee.FeatureCollection,
+    raster_idx: int,
+    max_workers: int = 4,
+    chunk_size: int = 2500,
+) -> None:
     logger.info(f"Processing raster {raster_idx}...")
 
     tile_geometry = image.select("VV").geometry()
@@ -155,7 +161,9 @@ def _process_image(image, parcels, raster_idx, max_workers=4, chunk_size=2500):
     logger.info(f"All files for raster {raster_idx} are being exported.")
 
 
-def process_with_recovery(start_date: str, end_date: str, current_dir: Path, max_workers: int = 4):
+def process_with_recovery(
+    start_date: str, end_date: str, current_dir: Path, max_workers: int = 4
+) -> None:
     """Main processing function with automatic recovery and parallelization."""
     ee.Initialize()
 
