@@ -37,7 +37,7 @@ class MMapStoreERA5(MMapStore):
         self.era5_folder = era5_folder
         super().__init__(file_paths)
 
-        if self.era5_folder.exists() and "era5" not in self.mmaps:
+        if self.era5_folder and self.era5_folder.exists() and "era5" not in self.mmaps:
             if not (self.mmap_data_dir / "era5").is_dir():
                 logger.info("Existing MMap does not yet contain ERA5 data. Will create it.")
                 self._process_array_type("era5")
@@ -46,7 +46,9 @@ class MMapStoreERA5(MMapStore):
                 copy_before_wrapper_fn=False,
             )
         else:
-            logger.info("No ERA5 directory found. Please download ERA5 data if you want to include it.")
+            logger.info(
+                "No ERA5 directory found. Please download ERA5 data if you want to include it."
+            )
 
     def _load_era5_npz(self, npz_file: Path) -> np.ndarray:
         era5_file = self.era5_folder / npz_file.name if self.era5_folder else None
