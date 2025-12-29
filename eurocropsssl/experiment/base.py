@@ -169,7 +169,7 @@ class TunedExperiment(Generic[ExperimentConfigT]):
 
             result_path = self.runs_dir.joinpath(f"{run_result.run_name}.json")
             with open(result_path, "w") as f:
-                json.dump(run_result.dict(), f)
+                json.dump(run_result.model_dump(), f)
 
         return run_result
 
@@ -218,7 +218,7 @@ class TunedExperiment(Generic[ExperimentConfigT]):
         result_path = self.runs_dir.joinpath(f"{study_name}-best.json")
         logger.info("Saving best result to %s", str(result_path))
         with open(result_path, "w") as f:
-            json.dump(result.dict(), f)
+            json.dump(result.model_dump(), f)
         return result
 
     def _get_trial_runs(self, study_name: str | None, trial_id: int) -> list[RunResult]:
