@@ -3,11 +3,11 @@
 https://github.com/nasaharvest/presto/blob/main/presto/dataops/pipelines/s1_s2_era5_srtm.py
 """
 
-import warnings
 from collections import OrderedDict
 from functools import partial
 from typing import List, cast
 from typing import OrderedDict as OrderedDictType
+import warnings
 
 import numpy as np
 
