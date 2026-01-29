@@ -319,7 +319,7 @@ class Trainer:
             if step % 10 == 0:
                 if isinstance(callback, MLFlowCallback) and scheduler:
                     cast(MLFlowCallback, callback).mlflow_logger.log(
-                        "lr", scheduler.get_last_lr()[0], global_step=step
+                        "lr", float(scheduler.get_last_lr()[0]), global_step=step
                     )
                 callback.train_callback(train_loss, train_metrics, model=model, step=step)
 

@@ -36,7 +36,7 @@ def list_experiments(
     """List tracked experiments."""
     if active:
         active_experiments = _list_experiments_as_dataframe(
-            ViewType.ACTIVE_ONLY,
+            ViewType.ACTIVE_ONLY, # type: ignore[arg-type]
             filter_string=filter_string if filter_string else None,
         )
         logger.info(f"Found {len(active_experiments)} matching active experiments.")
@@ -49,7 +49,7 @@ def list_experiments(
 
     if deleted:
         deleted_experiments = _list_experiments_as_dataframe(
-            ViewType.DELETED_ONLY,
+            ViewType.DELETED_ONLY, # type: ignore[arg-type]
             filter_string=filter_string if filter_string else None,
         )
         logger.info(f"Found {len(deleted_experiments)} matching deleted experiments.")
@@ -83,7 +83,7 @@ def list_runs(
     if active:
         active_runs = _list_experiment_runs_as_dataframe(
             experiment_id,
-            ViewType.ACTIVE_ONLY,
+            ViewType.ACTIVE_ONLY, # type: ignore[arg-type]
             filter_string=filter_string if filter_string else None,
         )
         logger.info(f"Found {len(active_runs)} matching active runs.")
@@ -97,7 +97,7 @@ def list_runs(
     if deleted:
         deleted_runs = _list_experiment_runs_as_dataframe(
             experiment_id,
-            ViewType.DELETED_ONLY,
+            ViewType.DELETED_ONLY, # type: ignore[arg-type]
             filter_string=filter_string if filter_string else None,
         )
         logger.info(f"Found {len(deleted_runs)} matching deleted runs.")
@@ -123,7 +123,7 @@ def delete(
     experiment = mlflow.get_experiment(experiment_id)
     if experiment.lifecycle_stage == "deleted":
         runs = _list_experiment_runs_as_dataframe(
-            experiment_id, ViewType.DELETED_ONLY, filter_string=None
+            experiment_id, ViewType.DELETED_ONLY, filter_string=None # type: ignore[arg-type]
         )
         logger.info(f"Found {len(runs)} runs for the experiment with id {experiment_id}.")
         logger.info("\n" + runs.sort_values("start_time").to_string(index=False))
@@ -181,7 +181,10 @@ def _list_experiments_as_dataframe(view_type: ViewType, filter_string: str | Non
         "_lifecycle_stage": "lifecycle_stage",
         "_tags": "tags",
     }
-    experiment_list = mlflow.search_experiments(view_type=view_type, filter_string=filter_string)
+    experiment_list = mlflow.search_experiments(
+        view_type=view_type, # type: ignore[arg-type]
+        filter_string=filter_string
+    )
     df = pd.DataFrame([vars(exp) for exp in experiment_list], columns=column_names.keys())
     df.rename(columns=column_names, inplace=True)
     df["creation_time"] = pd.to_datetime(df["creation_time"], unit="ms", origin="unix")
@@ -204,8 +207,8 @@ def _list_experiment_runs_as_dataframe(
     }
     run_list = mlflow.search_runs(
         experiment_ids=[experiment_id],
-        run_view_type=view_type,
-        filter_string=filter_string,
+        run_view_type=view_type, # type: ignore[arg-type]
+        filter_string=filter_string, # type: ignore[arg-type]
         output_format="list",
     )
     df = pd.DataFrame([vars(run.info) for run in run_list], columns=column_names.keys())

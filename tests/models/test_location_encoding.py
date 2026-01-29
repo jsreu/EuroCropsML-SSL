@@ -20,7 +20,8 @@ def linear_layer() -> torch.nn.Linear:
 def test_data_item() -> DataItem:
     # create random data for time series
     data = np.ones((100, 13))
-    data = np.concatenate((data, -1 * np.ones((10, 13))), axis=0)  # padding for batching
+    # padding for batching
+    data = np.concatenate((data, -1 * np.ones((10, 13))), axis=0)  # type: ignore[assignment]
     tensor_data = torch.tensor(data, dtype=torch.float)
 
     # random coordinates for testing
