@@ -4,9 +4,9 @@ https://github.com/nasaharvest/presto/blob/main/presto/dataops/pipelines/s1_s2_e
 """
 
 import warnings
-from collections import OrderedDict
+from collections import OrderedDict as OrderedDictCollection
 from functools import partial
-from typing import List, OrderedDict as OrderedDictType, cast
+from typing import List, OrderedDict, cast
 
 import numpy as np
 
@@ -92,7 +92,7 @@ TIMESTEPS_IDX = list(range(NUM_TIMESTEPS))
 NORMED_BANDS = [x for x in BANDS if x != "B9"]
 NUM_BANDS = len(NORMED_BANDS)
 BANDS_IDX = list(range(NUM_BANDS))
-BANDS_GROUPS_IDX: OrderedDictType[str, List[int]] = OrderedDict(
+BANDS_GROUPS_IDX: OrderedDict[str, List[int]] = OrderedDictCollection(
     {
         "S1": [NORMED_BANDS.index(b) for b in S1_BANDS],
         "S2_RGB": [NORMED_BANDS.index(b) for b in ["B2", "B3", "B4"]],
