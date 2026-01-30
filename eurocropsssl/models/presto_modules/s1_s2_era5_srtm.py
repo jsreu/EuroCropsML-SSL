@@ -6,8 +6,7 @@ https://github.com/nasaharvest/presto/blob/main/presto/dataops/pipelines/s1_s2_e
 import warnings
 from collections import OrderedDict
 from functools import partial
-from typing import List, cast
-from typing import OrderedDict as OrderedDictType
+from typing import List, OrderedDict as OrderedDictType, cast
 
 import numpy as np
 
