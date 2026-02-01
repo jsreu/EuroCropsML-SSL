@@ -1,0 +1,102 @@
+eurocrops (random initialization): # for finetuning sen12mscrts use bands from sen12mscrts
+  S1+S2:
+    in_channels: 16 #including NDVI (15 without NDVI) 
+    model_channels:
+    - "VV"
+    - "VH"
+    - "01"
+    - "02"
+    - "03"
+    - "04"
+    - "05"
+    - "06"
+    - "07"
+    - "08"
+    - "8A"
+    - "09"
+    - "10"
+    - "11"
+    - "12"
+    - "NDVI" # can be removed
+  S2:
+    in_channels: 14 #including NDVI (13 without NDVI) 
+    model_channels:
+    - "01"
+    - "02"
+    - "03"
+    - "04"
+    - "05"
+    - "06"
+    - "07"
+    - "08"
+    - "8A"
+    - "09"
+    - "10"
+    - "11"
+    - "12"
+    - "NDVI" # can be removed
+  S2+ERA5:
+    in_channels: 16 #including NDVI (15 without NDVI) 
+    model_channels:
+    - "01"
+    - "02"
+    - "03"
+    - "04"
+    - "05"
+    - "06"
+    - "07"
+    - "08"
+    - "8A"
+    - "09"
+    - "10"
+    - "11"
+    - "12"
+    - "2m_temperature"
+    - "total_precipitation"
+    - "NDVI" # can be removed
+  S1+S2+ERA5:
+    in_channels: 18 #including NDVI (17 without NDVI) 
+    model_channels:
+      - "VV"
+      - "VH"
+      - "01"
+      - "02"
+      - "03"
+      - "04"
+      - "05"
+      - "06"
+      - "07"
+      - "08"
+      - "8A"
+      - "09"
+      - "10"
+      - "11"
+      - "12"
+      - "2m_temperature"
+      - "total_precipitation"
+      - "NDVI" # can be removed
+
+
+sen12mscrts:
+  in_channels: 18 #including NDVI (17 without NDVI)
+  model_channels:
+    - "VV"
+    - "VH"
+    - "01"
+    - "02"
+    - "03"
+    - "04"
+    - "05"
+    - "06"
+    - "07"
+    - "08"
+    - "8A"
+    - "09"
+    - "10"
+    - "11"
+    - "12"
+    - "2m_temperature"
+    - "total_precipitation"
+    - "NDVI" # can be removed
+
+  

@@ -1,0 +1,5 @@
+raw_data_dir: "raw_data"
+base_dataset: "sen12mscrts"
+workers: 16
+climate_variables: ["2m_temperature", "total_precipitation"]
+normalize: False

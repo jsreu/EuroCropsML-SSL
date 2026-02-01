@@ -1,0 +1,9 @@
+raw_data_dir: "raw_data"
+pixels_dir: "pixels"
+workers: 4
+split:
+  - "all"
+region: "europa"
+cloud_masks: "s2cloudless_map"
+era5_dir: "sen12mscrts"
+era5_normalize: True

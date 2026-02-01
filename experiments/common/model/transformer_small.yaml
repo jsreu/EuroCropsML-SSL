@@ -1,0 +1,29 @@
+d_model: 128
+dim_fc: 264
+in_channels: 18 # for SEN12MSCRTS (inlcuding NDVI)
+pos_enc_len: 366
+location_encoding: True
+n_heads: 4
+num_layers: 1
+channel_encoding: "presto"
+channels:
+  - "VV"
+  - "VH"
+  - "01"
+  - "02"
+  - "03"
+  - "04"
+  - "05"
+  - "06"
+  - "07"
+  - "08"
+  - "8A"
+  - "09"
+  - "10"
+  - "11"
+  - "12"
+  - "2m_temperature"
+  - "total_precipitation"
+  - "NDVI"
+
+model_builder: TransformerModelBuilder
